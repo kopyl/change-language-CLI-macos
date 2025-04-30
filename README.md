@@ -10,7 +10,7 @@ I'm writing the screenshot making automation in AppleScript and it does not nati
 To achieve language changing with AppleScript you can run some external shell script (which is why I made this binary).
 
 ### How to run it:
-1. Download the binary from the latest release
+1. [Download the binary from the latest release](https://github.com/kopyl/change-language-CLI-macos/releases/download/0.2/change-language.zip)
 2. Convenience-wise i recommend you to put the binary to `/usr/local/bin/` on your macOS, so you don't need to write the full path to this tool each time you run it. You can do it like this: `sudo cp /path/to/downloaded/change-language /usr/local/bin/`
 3. To get available input sources with their IDs run `change-language` (or full path to the binary).
 4. To switch to some other input source, just run `change-language {ID}`. Fox example: `change-language 0`, which will set your input source to English.
