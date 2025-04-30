@@ -2,8 +2,9 @@ import ArgumentParser
 
 @main
 struct ChangeLanguage: ParsableCommand {
-    @Argument(help: "Specfiy input source ID to switch to")
-    public var inputSourceID: Int?
+    /// has to be parsed as array, otherwise negative values are not supported
+    @Argument(parsing: .allUnrecognized)
+    public var inputSourceID: [Int] = []
     
     private func listAllInputSources() {
         for (_, name, layoutID) in getInputSourcesWithIDs() {
@@ -15,16 +16,23 @@ struct ChangeLanguage: ParsableCommand {
     }
 
     public func run() throws {
-        if inputSourceID == nil {
+        
+        if inputSourceID.isEmpty {
             print("Currently available input sources you can switch to:")
             listAllInputSources()
             return
         }
+        if inputSourceID.count > 1 {
+            print("Please specify only one input source ID out of these:")
+            listAllInputSources()
+        }
+        
+        let _inputSourceID = Int(inputSourceID[0])
         
         let availableInputSources = getInputSourcesWithIDs()
         
-        if !availableInputSources.map(\.2).contains(inputSourceID) {
-            print("Input source with ID \(inputSourceID ?? 0) not found.")
+        if !availableInputSources.map(\.2).contains(_inputSourceID) {
+            print("Input source with ID \(_inputSourceID) not found.")
             print("Please specify the ID from available input sources:")
             listAllInputSources()
             return
@@ -32,7 +40,7 @@ struct ChangeLanguage: ParsableCommand {
         
         for (source, _, layoutID) in availableInputSources {
             
-            if layoutID == inputSourceID {
+            if layoutID == _inputSourceID {
                 changeInputSource(inputSource: source)
             }
         }
