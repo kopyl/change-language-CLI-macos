@@ -16,7 +16,7 @@ struct ChangeLanguage: ParsableCommand {
 
     public func run() throws {
         if inputSourceID == nil {
-            print("Currently available input sources you can switch ti:")
+            print("Currently available input sources you can switch to:")
             listAllInputSources()
             return
         }
